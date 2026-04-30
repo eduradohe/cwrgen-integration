@@ -1,0 +1,37 @@
+services:
+  git-server:
+    build:
+      context: .
+      dockerfile: docker/git-server/Dockerfile
+    hostname: git-server
+    ports:
+      - "2222:22"
+
+  developer-machine:
+    build:
+      context: .
+      dockerfile: docker/developer-machine/Dockerfile
+    depends_on:
+      - git-server
+    environment:
+      CWGEN_SOURCE: /workspace/cwgen
+      CWR_GIT_HOST: git-server
+      CWR_GIT_PORT: "22"
+      CWR_GIT_USER: git
+    volumes:
+      - ${CWGEN_SOURCE:-../cwgen}:/workspace/cwgen:ro
+      - ./artifacts:/workspace/artifacts
+
+  installer-edge-alma9:
+    build:
+      context: .
+      dockerfile: docker/installer-edge-machine/Dockerfile.alma9
+    volumes:
+      - ${CWGEN_SOURCE:-../cwgen}:/workspace/cwgen:ro
+
+  installer-edge-debian:
+    build:
+      context: .
+      dockerfile: docker/installer-edge-machine/Dockerfile.debian
+    volumes:
+      - ${CWGEN_SOURCE:-../cwgen}:/workspace/cwgen:ro

@@ -1,0 +1,31 @@
+name: CWRGen Integration
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - cwgen-changed
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  linux-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout integration harness
+        uses: actions/checkout@v6
+        with:
+          path: cwgen-integration
+
+      - name: Checkout CWRGen
+        uses: actions/checkout@v6
+        with:
+          repository: eduradohe/cwgen
+          token: ${{ secrets.CWGEN_READ_TOKEN || github.token }}
+          path: cwgen
+
+      - name: Run integration tests
+        run: ./cwgen-integration/scripts/run-all.sh

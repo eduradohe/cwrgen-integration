@@ -1,0 +1,8 @@
+FROM almalinux:9
+
+RUN dnf install -y bash coreutils findutils tar gzip procps-ng \
+  && dnf clean all
+
+WORKDIR /workspace
+
+CMD ["/bin/bash"]

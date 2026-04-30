@@ -1,0 +1,6 @@
+.cwgen-under-test/
+artifacts/
+target/
+.tmp/
+fixtures/keys/*
+!fixtures/keys/.gitkeep
