@@ -10,6 +10,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   linux-integration:
     runs-on: ubuntu-latest
@@ -29,3 +32,23 @@ jobs:
 
       - name: Run integration tests
         run: ./cwgen-integration/scripts/run-all.sh
+
+  windows-integration:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout integration harness
+        uses: actions/checkout@v6
+        with:
+          path: cwgen-integration
+
+      - name: Checkout CWRGen
+        uses: actions/checkout@v6
+        with:
+          repository: eduradohe/cwgen
+          token: ${{ secrets.CWGEN_READ_TOKEN || github.token }}
+          path: cwgen
+
+      - name: Run Windows install smoke tests
+        shell: pwsh
+        run: .\cwgen-integration\scripts\windows-ci\run-install-smoke.ps1 -CwgenSource .\cwgen
