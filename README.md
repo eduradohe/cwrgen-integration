@@ -68,9 +68,8 @@ runtime. Use the Windows Sandbox harness below for a clean-machine check of the
 missing-Git-Bash and installer-download paths, and for local runs that should
 not touch your normal Windows profile.
 
-If the CWRGen repository is private, configure a `CWGEN_READ_TOKEN` repository
-secret with read access to `eduradohe/cwgen` so the GitHub Actions workflow can
-checkout the source under test.
+Because the CWRGen repository is private, the workflow checks it out with the
+read-only `CWGEN_DEPLOY_KEY` Actions secret.
 
 To generate and start the Windows Sandbox smoke test:
 

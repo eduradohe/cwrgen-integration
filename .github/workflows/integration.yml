@@ -27,7 +27,8 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: eduradohe/cwgen
-          token: ${{ secrets.CWGEN_READ_TOKEN || github.token }}
+          ref: main
+          ssh-key: ${{ secrets.CWGEN_DEPLOY_KEY }}
           path: cwgen
 
       - name: Run integration tests
@@ -46,7 +47,8 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: eduradohe/cwgen
-          token: ${{ secrets.CWGEN_READ_TOKEN || github.token }}
+          ref: main
+          ssh-key: ${{ secrets.CWGEN_DEPLOY_KEY }}
           path: cwgen
 
       - name: Run Windows install smoke tests
