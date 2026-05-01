@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types:
-      - cwgen-changed
+      - cwrgen-changed
   pull_request:
   push:
     branches:
@@ -21,18 +21,17 @@ jobs:
       - name: Checkout integration harness
         uses: actions/checkout@v6
         with:
-          path: cwgen-integration
+          path: cwrgen-integration
 
       - name: Checkout CWRGen
         uses: actions/checkout@v6
         with:
-          repository: eduradohe/cwgen
+          repository: eduradohe/cwrgen
           ref: main
-          ssh-key: ${{ secrets.CWGEN_DEPLOY_KEY }}
-          path: cwgen
+          path: cwrgen
 
       - name: Run integration tests
-        run: CWGEN_SOURCE="$GITHUB_WORKSPACE/cwgen" ./cwgen-integration/scripts/run-all.sh
+        run: CWGEN_SOURCE="$GITHUB_WORKSPACE/cwrgen" ./cwrgen-integration/scripts/run-all.sh
 
   windows-integration:
     runs-on: windows-latest
@@ -41,16 +40,15 @@ jobs:
       - name: Checkout integration harness
         uses: actions/checkout@v6
         with:
-          path: cwgen-integration
+          path: cwrgen-integration
 
       - name: Checkout CWRGen
         uses: actions/checkout@v6
         with:
-          repository: eduradohe/cwgen
+          repository: eduradohe/cwrgen
           ref: main
-          ssh-key: ${{ secrets.CWGEN_DEPLOY_KEY }}
-          path: cwgen
+          path: cwrgen
 
       - name: Run Windows install smoke tests
         shell: pwsh
-        run: .\cwgen-integration\scripts\windows-ci\run-install-smoke.ps1 -CwgenSource .\cwgen
+        run: .\cwrgen-integration\scripts\windows-ci\run-install-smoke.ps1 -CwgenSource .\cwrgen

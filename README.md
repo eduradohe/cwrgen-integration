@@ -34,8 +34,8 @@ tests/*.sh                           Bash integration tests
 Copy or checkout the CWRGen repository next to this repository:
 
 ```text
-../cwgen
-../cwgen-integration
+../cwrgen
+../cwrgen-integration
 ```
 
 Then run:
@@ -47,7 +47,7 @@ Then run:
 To test a different CWRGen checkout:
 
 ```bash
-CWGEN_SOURCE=/path/to/cwgen ./scripts/run-all.sh
+CWGEN_SOURCE=/path/to/cwrgen ./scripts/run-all.sh
 ```
 
 ## Windows Batch Tests
@@ -59,7 +59,7 @@ for local disposable-machine checks.
 The GitHub Actions workflow invokes the CI smoke path like this:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\scripts\windows-ci\run-install-smoke.ps1 -CwgenSource ..\cwgen
+powershell.exe -ExecutionPolicy Bypass -File .\scripts\windows-ci\run-install-smoke.ps1 -CwgenSource ..\cwrgen
 ```
 
 GitHub-hosted Windows runners already include Git for Windows, so this path
@@ -68,13 +68,12 @@ runtime. Use the Windows Sandbox harness below for a clean-machine check of the
 missing-Git-Bash and installer-download paths, and for local runs that should
 not touch your normal Windows profile.
 
-Because the CWRGen repository is private, the workflow checks it out with the
-read-only `CWGEN_DEPLOY_KEY` Actions secret.
+The GitHub Actions workflow checks out the public CWRGen repository directly.
 
 To generate and start the Windows Sandbox smoke test:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\scripts\windows-sandbox\run-install-smoke.ps1 -CwgenSource ..\cwgen
+powershell.exe -ExecutionPolicy Bypass -File .\scripts\windows-sandbox\run-install-smoke.ps1 -CwgenSource ..\cwrgen
 ```
 
 The default mode runs the main Windows batch checks:

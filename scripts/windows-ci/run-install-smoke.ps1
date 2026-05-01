@@ -59,7 +59,7 @@ function Resolve-LatestGitInstallerUrl {
   $ReleaseUri = 'https://api.github.com/repos/git-for-windows/git/releases/latest'
   Write-Info "Resolving latest Git for Windows installer URL from $ReleaseUri"
 
-  $Release = Invoke-RestMethod -Uri $ReleaseUri -Headers @{ 'User-Agent' = 'cwgen-integration' }
+  $Release = Invoke-RestMethod -Uri $ReleaseUri -Headers @{ 'User-Agent' = 'cwrgen-integration' }
   $Asset = $Release.assets |
     Where-Object { $_.name -match '^Git-[0-9].*-64-bit\.exe$' -and $_.name -notmatch 'Portable|MinGit' } |
     Select-Object -First 1

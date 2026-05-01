@@ -13,6 +13,6 @@ if [[ -f "$KEY_FILE" ]]; then
   exit 0
 fi
 
-ssh-keygen -t ed25519 -N "" -C "cwgen-integration@example.test" -f "$KEY_FILE"
+ssh-keygen -t ed25519 -N "" -C "cwrgen-integration@example.test" -f "$KEY_FILE"
 chmod 600 "$KEY_FILE"
 chmod 644 "$KEY_FILE.pub"

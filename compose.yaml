@@ -19,7 +19,7 @@ services:
       CWR_GIT_PORT: "22"
       CWR_GIT_USER: git
     volumes:
-      - ${CWGEN_SOURCE:-../cwgen}:/workspace/cwgen:ro
+      - ${CWGEN_SOURCE:-../cwrgen}:/workspace/cwgen:ro
       - ./artifacts:/workspace/artifacts
 
   installer-edge-alma9:
@@ -27,11 +27,11 @@ services:
       context: .
       dockerfile: docker/installer-edge-machine/Dockerfile.alma9
     volumes:
-      - ${CWGEN_SOURCE:-../cwgen}:/workspace/cwgen:ro
+      - ${CWGEN_SOURCE:-../cwrgen}:/workspace/cwgen:ro
 
   installer-edge-debian:
     build:
       context: .
       dockerfile: docker/installer-edge-machine/Dockerfile.debian
     volumes:
-      - ${CWGEN_SOURCE:-../cwgen}:/workspace/cwgen:ro
+      - ${CWGEN_SOURCE:-../cwrgen}:/workspace/cwgen:ro
