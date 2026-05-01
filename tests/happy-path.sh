@@ -10,13 +10,26 @@ export REPOS_FILE="/workspace/repos.properties"
 export CONFIG_FILE="/workspace/cwgen.properties"
 
 setup_ssh() {
+  local attempt
+  local host="${CWR_GIT_HOST:-git-server}"
+  local port="${CWR_GIT_PORT:-22}"
+
   mkdir -p "$HOME/.ssh"
   cp /tmp/client_key "$HOME/.ssh/id_ed25519"
   cp /tmp/client_key.pub "$HOME/.ssh/id_ed25519.pub"
   chmod 700 "$HOME/.ssh"
   chmod 600 "$HOME/.ssh/id_ed25519"
   chmod 644 "$HOME/.ssh/id_ed25519.pub"
-  ssh-keyscan -p "${CWR_GIT_PORT:-22}" "${CWR_GIT_HOST:-git-server}" >>"$HOME/.ssh/known_hosts" 2>/dev/null
+
+  for attempt in {1..30}; do
+    if ssh-keyscan -p "$port" "$host" >>"$HOME/.ssh/known_hosts" 2>/dev/null; then
+      return
+    fi
+    sleep 1
+  done
+
+  echo "Timed out waiting for SSH test server at $host:$port" >&2
+  exit 1
 }
 
 write_config() {

@@ -32,7 +32,7 @@ jobs:
           path: cwgen
 
       - name: Run integration tests
-        run: ./cwgen-integration/scripts/run-all.sh
+        run: CWGEN_SOURCE="$GITHUB_WORKSPACE/cwgen" ./cwgen-integration/scripts/run-all.sh
 
   windows-integration:
     runs-on: windows-latest
