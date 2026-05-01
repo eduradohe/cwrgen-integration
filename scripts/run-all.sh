@@ -9,6 +9,9 @@ cd "$REPO_ROOT"
 "$SCRIPT_DIR/generate-test-keys.sh"
 mkdir -p artifacts
 
+docker compose down -v --remove-orphans
+trap 'docker compose down -v --remove-orphans' EXIT
+
 docker compose build
 docker compose up -d git-server
 docker compose run --rm developer-machine bash /tests/happy-path.sh

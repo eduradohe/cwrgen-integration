@@ -4,6 +4,10 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends bash ca-certificates coreutils findutils tar gzip procps \
   && rm -rf /var/lib/apt/lists/*
 
+COPY tests /tests
+COPY fixtures/keys/id_ed25519 /tmp/client_key
+COPY fixtures/keys/id_ed25519.pub /tmp/client_key.pub
+
 WORKDIR /workspace
 
 CMD ["/bin/bash"]

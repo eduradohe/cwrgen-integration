@@ -13,7 +13,7 @@ create_repo() {
   rm -rf "$repo_dir" "$bare_repo"
   mkdir -p "$repo_dir"
 
-  git init "$repo_dir" >/dev/null
+  git init --initial-branch=main "$repo_dir" >/dev/null
   git -C "$repo_dir" config user.name "Fixture Developer"
   git -C "$repo_dir" config user.email "$author_email"
 
@@ -46,9 +46,10 @@ EOF
     GIT_COMMITTER_DATE="2026-04-12T10:00:00Z" \
     git -C "$repo_dir" commit -m "Add unrelated author work" >/dev/null
 
-  git init --bare "$bare_repo" >/dev/null
+  git init --bare --initial-branch=main "$bare_repo" >/dev/null
   git -C "$repo_dir" remote add origin "$bare_repo"
   git -C "$repo_dir" push -u origin HEAD:main >/dev/null
+  git --git-dir="$bare_repo" symbolic-ref HEAD refs/heads/main
 }
 
 mkdir -p "$GIT_ROOT" "$WORK_ROOT"
