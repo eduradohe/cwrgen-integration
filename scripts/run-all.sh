@@ -14,5 +14,5 @@ trap 'docker compose down -v --remove-orphans' EXIT
 
 docker compose build
 docker compose up -d git-server
-docker compose run --rm developer-machine bash /tests/happy-path.sh
-docker compose run --rm installer-edge-alma9 bash /tests/installer-auto-options.sh
+docker compose run --rm -T developer-machine bash /tests/happy-path.sh
+docker compose run --rm -T installer-edge-alma9 bash /tests/installer-auto-options.sh
